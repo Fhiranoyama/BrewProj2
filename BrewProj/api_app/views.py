@@ -16,8 +16,8 @@ class Brewshopping(View):
         req = requests.get(site)
         list_of_jsons = req.json()        
         response = HttpResponse()
-        response.write("<table>")
-        response.write("<tr><th>brew_name</th><th>Price</th><th>type_brews</th></tr>")
+        response.write("<table border= '2'>")
+        response.write("<tr><th>brewery_name</th><th>city</th><th>type_brews</th></tr>")
         for Brew in list_of_jsons:
             #print (Brew)
             response.write(f"<tr><td>{Brew['name']}</td><td>{Brew['city']}</td><td>{Brew['brewery_type']}</td></tr>")
@@ -40,7 +40,7 @@ class Brewshopping(View):
         Brewiten = Brewiten.objects.create(**produco_data)
 
         data = {
-            "message": f"Brew_name: {Brew_item.id}"
+            "message": f"Brew_name: {Brewiten.id}"
         }
         return JsonResponse(data, status=201)
     
@@ -49,7 +49,7 @@ class updel(View):
 
     def patch(self, request, item_id):
         data = json.loads(request.body.decode("utf-8"))
-        item = Brew.objects.get(id=item_id)
+        item = Brewiten.objects.get(id=item_id)
         item.type_brews= data['type']
         item.save()
 
