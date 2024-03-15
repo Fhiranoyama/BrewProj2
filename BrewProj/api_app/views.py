@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 @method_decorator(csrf_exempt, name='dispatch')
 class Brewshopping(View):
-    def post(self, request):
+    def get(self, request):
         nome = request.GET.get('Brews', '')
         site = 'https://api.openbrewerydb.org/v1/breweries/{obdb-id}={}'.format(nome)
         req = requests.get(site)
@@ -35,7 +35,7 @@ class Brewshopping(View):
             'type_brews': type_brews,
         }
 
-        food_item = Brewiten.objects.create(**produco_data)
+        Brewiten = Brewiten.objects.create(**produco_data)
 
         data = {
             "message": f"Brew_name: {Brew_item.id}"
