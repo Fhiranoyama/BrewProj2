@@ -1,3 +1,8 @@
-from django.test import TestCase
+from django.urls import path
+from .views import Brewshopping, updel
 
-# Create your tests here.
+
+urlpatterns = [
+    path('nutri/', Brewshopping.as_view()),
+     path('update-item/<int:item_id>', updel.as_view()),
+]
