@@ -10,15 +10,17 @@ from django.views.decorators.csrf import csrf_exempt
 @method_decorator(csrf_exempt, name='dispatch')
 class Brewshopping(View):
     def get(self, request):
-        nome = request.GET.get('Brews', '')
-        site = 'https://api.openbrewerydb.org/v1/breweries/{obdb-id}={}'.format(nome)
+        nome = request.GET.get('nome', '')
+        site = f'https://api.openbrewerydb.org/v1/breweries?by_name={nome}'
+        print(nome)
         req = requests.get(site)
         list_of_jsons = req.json()        
         response = HttpResponse()
         response.write("<table>")
         response.write("<tr><th>brew_name</th><th>Price</th><th>type_brews</th></tr>")
         for Brew in list_of_jsons:
-            response.write(f"<tr><td>{Brew['brew_name']}</td><td>{Brew['Price']}</td><td>{Brew['type_brews']}</td></tr>")
+            #print (Brew)
+            response.write(f"<tr><td>{Brew['name']}</td><td>{Brew['city']}</td><td>{Brew['brewery_type']}</td></tr>")
         response.write("</table>")
         return response
     

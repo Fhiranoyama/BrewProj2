@@ -3,6 +3,6 @@ from .views import Brewshopping, updel
 
 
 urlpatterns = [
-    path('Brews/', Brewshopping.as_view()),
-     path('update-item/<int:item_id>', updel.as_view()),
+    path('brews/', Brewshopping.as_view()),
+    path('update-item/<int:item_id>', updel.as_view()),
 ]
